@@ -55,7 +55,7 @@ class TeamView extends Component {
     return (
         <View style={styles.container}>
           <View style={styles.heading}>
-            <Text style={styles.title}>{team.name} dfsdsf</Text>
+            <Text style={styles.title}>{team.name}</Text>
             <View style={styles.separator}/>
           </View>
           <Text style={styles.description}>{team.quarters}</Text>
