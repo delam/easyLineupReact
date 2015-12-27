@@ -72,6 +72,7 @@ class NewTeam extends Component {
   createTeam() {
     DB.teams.add(this.form, function(team){
       console.log("Team Added", team);
+      // This redirect is not working
       // DB.teams.get_all(function(teams) {
       //   console.log("All Teams", teams)
       this.props.navigator.push({

@@ -17,6 +17,7 @@ var {
     Component
     } = React;
 
+
 var {
     MKButton,
     MKColor,
@@ -41,18 +42,25 @@ var styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    padding: 10
+    padding: 10,
+    flex: 1
   },
   container: {
     padding: 30,
     marginTop: 65,
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column'
   },
   actionButtonIcon: {
     fontSize: 20,
     height: 22,
     color: 'white',
   },
+  outerScroll: {
+    flex: 1,
+    flexDirection: 'column'
+  } 
 });
 
 const AccentColoredFab = MKButton.accentColoredFab()
