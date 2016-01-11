@@ -2,9 +2,11 @@
 
 var React = require('react-native');
 var TeamView = require('./TeamView');
+var NewTeam = require('./NewTeam');
 var ActionButton = require('react-native-action-button'),
     Icon = require('react-native-vector-icons/Ionicons');
 var MK = require('react-native-material-kit');
+
 var {
     StyleSheet,
     Image,
@@ -14,6 +16,7 @@ var {
     Text,
     Component
     } = React;
+
 
 var {
     MKButton,
@@ -39,18 +42,25 @@ var styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    padding: 10
+    padding: 10,
+    flex: 1
   },
   container: {
     padding: 30,
     marginTop: 65,
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column'
   },
   actionButtonIcon: {
     fontSize: 20,
     height: 22,
     color: 'white',
   },
+  outerScroll: {
+    flex: 1,
+    flexDirection: 'column'
+  } 
 });
 
 const AccentColoredFab = MKButton.accentColoredFab()
@@ -77,18 +87,26 @@ class TeamList extends Component {
   }
 
   rowPressed(idx) {
-    var team_data = {name: 'Tigers', quarters: 4, games: [{name: 'Game 1', id: 0}, {name: 'Game 2', id: 1}, {name: 'Game 3', id: 2}], players: [{name: 'David', number: '00'}]};
+    // var team_data = {name: 'Tigers', quarters: 4, games: [{name: 'Game 1', id: 0}, {name: 'Game 2', id: 1}, {name: 'Game 3', id: 2}], players: [{name: 'David', number: '00'}]};
 
     this.props.navigator.push({
       title: "Team",
       component: TeamView,
-      passProps: {team: team_data}
+      passProps: {team: this.props.teams[idx]}
+    });
+  }
+
+  addTeamPressed() {
+    this.setState({ isLoading: true });
+    this.props.navigator.push({
+      title: 'New Team',
+      component: NewTeam
     });
   }
 
   renderRow(rowData, sectionID, rowID) {
     return (
-        <TouchableHighlight onPress={() => this.rowPressed(rowData.id)}
+        <TouchableHighlight onPress={() => this.rowPressed(rowData._id)}
             underlayColor='#dddddd'>
           <View>
             <View style={styles.rowContainer}>
@@ -111,14 +129,8 @@ class TeamList extends Component {
         renderRow={this.renderRow.bind(this)}/>
 
         <ActionButton buttonColor="rgba(231,76,60,1)">
-          <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+          <ActionButton.Item buttonColor='#9b59b6' title="Add Team" onPress={this.addTeamPressed.bind(this)}>
             <Icon name="android-create" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
-            <Icon name="android-notifications-none" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
-            <Icon name="android-done-all" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
       </View>
